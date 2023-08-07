@@ -1,19 +1,19 @@
-try{
+try {
     //Getting fav cotent from localstrorage
-    let favMovies=JSON.parse(localStorage.getItem("fav_array"));
-    
+    let favMovies = JSON.parse(localStorage.getItem("fav_array"));
+
     //if there is fav content, we render that
-    if(favMovies){
+    if (favMovies) {
         console.log(favMovies);
         favMovies.forEach(element => {
-        //calling renderFavs on each content
-        renderFavs(element);
+            //calling renderFavs on each content
+            renderFavs(element);
         });
     }
 
     //else we render our custom section
-    else{
-        document.getElementById('main_container').innerHTML=`
+    else {
+        document.getElementById('main_container').innerHTML = `
         <h3 class="py-2">Favourite Content</h3>
         <section class="py-5 text-center container">
             <div class="row py-lg-5">
@@ -28,15 +28,15 @@ try{
     }
 
     //renderFavs fn
-    async function renderFavs(favMovieId){
-    
-    //fetching content data from content id
-    let response=await fetch(`https://www.omdbapi.com/?i=${favMovieId}&apikey=d91a9827`);
-    let data=await response.json();
-    let li=document.createElement('li');
+    async function renderFavs(favMovieId) {
 
-    //template to show fav contents in cards
-    li.innerHTML=`
+        //fetching content data from content id
+        let response = await fetch(`https://www.omdbapi.com/?i=${favMovieId}&apikey=d91a9827`);
+        let data = await response.json();
+        let li = document.createElement('li');
+
+        //template to show fav contents in cards
+        li.innerHTML = `
         <div class="card shadow-sm">
                 <img class="bd-placeholder-img card-img-top" height=225 style="width:200px;margin:5px auto;" src="${data.Poster}" />
                 <div class="card-body">
@@ -53,20 +53,20 @@ try{
             </div>
     `;
 
-    //adding content to list
-    document.getElementById('fav_movies').append(li);
+        //adding content to list
+        document.getElementById('fav_movies').append(li);
     }
 
     //function to remove content from fav list
-    function removeFav(id){
-        favMovies=favMovies.filter((e)=>{ 
-            return e !== id 
-        });  
+    function removeFav(id) {
+        favMovies = favMovies.filter((e) => {
+            return e !== id
+        });
         location.reload();
-        localStorage.setItem("fav_array",JSON.stringify(favMovies));
+        localStorage.setItem("fav_array", JSON.stringify(favMovies));
     }
 }
-catch(error){
-    if(error)
-    console.log(error);
+catch (error) {
+    if (error)
+        console.log(error);
 }

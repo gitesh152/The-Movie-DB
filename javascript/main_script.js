@@ -16,6 +16,47 @@ document.getElementById("form_submit").addEventListener("click", function (e) {
 //fetchMovies async fn to fetch content
 async function fetchMovies(string) {
   try {
+    let dummyMovieLi = document.createElement("li");
+    dummyMovieLi.innerHTML = `
+    <div class="row mx-auto placeholder-glow">
+              <div class="card shadow-sm" aria-hidden="true">
+                <img
+                  class="card-img-top placeholder"
+                  height="225"
+                  style="width: 200px; margin: 5px auto"
+                />
+                <div class="card-body">
+                  <h5 class="placeholder d-inline-block">data.Title</h5>
+                  <br />
+                  <p class="card-text placeholder d-inline-block">
+                    data.Plot
+                  </p>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="btn-group">
+                      <a
+                        class="view-btn btn btn btn-warning text-white disabled placeholder"
+                        href="./movie.html?data.imdbID"
+                        >&emsp;&emsp;</a
+                      >
+                      <button
+                        type="button"
+                        class="fav-btn active btn btn-sm btn-outline-primary mx-1 placeholder"
+                      >
+                        &emsp;&emsp;&emsp;&emsp;&emsp;
+                      </button>
+                    </div>
+                    <small class="text-muted placeholder col-2"
+                      >&emsp;&emsp;</small
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+    `
+    document.getElementById("movies_list").innerHTML = "";
+    document.getElementById("movies_list").append(dummyMovieLi);
     //fetching content from API.
     let response = await fetch(
       `https://www.omdbapi.com/?t=${string}&apikey=d91a9827`
@@ -36,33 +77,32 @@ async function fetchMovies(string) {
     li.innerHTML = `
         <div class="row mx-auto">
             <div class="card shadow-sm">
-                <img class="bd-placeholder-img card-img-top" height=225 style="width:200px;margin:5px auto;" src="${
-                  data.Poster
-                }" />
+                <img class="bd-placeholder-img card-img-top" height=225 style="width:200px;margin:5px auto;" src="${data.Poster
+      }" />
                 <div class="card-body">
                     <h5>${data.Title}</h5>
                     <p class="card-text">${data.Plot}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div  class="btn-group">
-                            <a class="view-btn btn btn-warning text-white" href="./movie.html?${
-                              data.imdbID
-                            }">View</a>
-                            <button type="button"  class="fav-btn active btn btn-sm btn-outline-primary mx-1" onclick=toggleFav("${
-                              data.imdbID
-                            }")  >  ${
-      favcheck ? "UnFavourite" : "Favourite"
-    }   </button>
+                            <a class="view-btn btn btn-warning text-white" href="./movie.html?${data.imdbID
+      }">View</a>
+                            <button type="button"  class="fav-btn active btn btn-sm btn-outline-primary mx-1" onclick=toggleFav("${data.imdbID
+      }")  >  ${favcheck ? "UnFavourite" : "Favourite"
+      }   </button>
                         </div>
-                        <small class="text-muted">imdb Rating : ${
-                          data.imdbRating
-                        }</small>
+                        <small class="text-muted">imdb Rating : ${data.imdbRating
+      }</small>
                     </div>
                 </div>
             </div>
         </div>
         `;
-    document.getElementById("movies_list").innerHTML = "";
-    document.getElementById("movies_list").append(li);
+    setTimeout(() => {
+      document.getElementById("movies_list").innerHTML = "";
+      document.getElementById("movies_list").append(li);
+    }, 1000)
+    // document.getElementById("movies_list").innerHTML = "";
+    // document.getElementById("movies_list").append(li);
   } catch (error) {
     if (error) console.log(error);
   }
