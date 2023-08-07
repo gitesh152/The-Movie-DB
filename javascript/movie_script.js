@@ -1,9 +1,9 @@
 //async function to get movie
 async function getMovie() {
-    //fetching movie from API basis of url query string
-
-    let dumpyMovieView =
-        `
+  //fetching movie from API basis of url query string
+  document.getElementById("movie_store").innerHTML = "";
+  let dumpyMovieView =
+    `
         <div class="container-md my-4 py-2 border placeholder-glow">
         <div class="row">
           <div class="col">
@@ -85,16 +85,16 @@ async function getMovie() {
         </div>
       </div>
     `
-    document.getElementById("movie_store").innerHTML = dumpyMovieView;
-    let response = await fetch(
-        `https://www.omdbapi.com/?i=${location.search.substring(1)}&apikey=d91a9827`
-    );
-    let data = await response.json();
-    console.log(data);
+  document.getElementById("movie_store").innerHTML = dumpyMovieView;
+  let response = await fetch(
+    `https://www.omdbapi.com/?i=${location.search.substring(1)}&apikey=d91a9827`
+  );
+  let data = await response.json();
+  console.log(data);
 
-    //template to show content complete information
-    let addToDom = () => {
-        document.getElementById("movie_store").innerHTML = `
+  //template to show content complete information
+  let addToDom = () => {
+    document.getElementById("movie_store").innerHTML = `
             <div class="container-md my-4 py-2 border">
                 <div class="row">
                     <div class="col">
@@ -160,7 +160,7 @@ async function getMovie() {
                 </div>
             </div>
     `;
-    }
-    setTimeout(addToDom, 1000)
+  }
+  setTimeout(addToDom, 1000)
 }
 getMovie();

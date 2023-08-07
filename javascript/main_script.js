@@ -108,8 +108,10 @@ async function fetchMovies(string) {
   }
 }
 
-let favList = [];
+let favList = localStorage.getItem("fav_array") ? JSON.parse(localStorage.getItem("fav_array")) : [];
 // let favList=["tt0242423","tt8231808"]; //dummy array of fav content IDs
+
+console.log(favList);
 
 //fn to toggle favourite button on content
 function toggleFav(movie_id) {
